@@ -7,6 +7,8 @@ Touch1   = dlmread("touchingknockingmovingmirorothersidewcomp.txt");
 CuttButter1 = 7;
 CuttButter2 = 20;
 
+%hier is ook een comment
+
 [b, a] = butter(6, CuttButter1/(400/2), "high");
 Filter1 = filter(b,a , Nul1);
 [c, d] = butter(6, CuttButter2/(400/2), "high");
@@ -30,3 +32,5 @@ subplot(1,2,2);
 
 %subplot(1,3,3);
 % plot(F1, P1), title(sprintf("Focused on peaks: FFT N = %d", N1)), axis([0.13 0.32 15 15.4]);
+
+%hier is een comment
