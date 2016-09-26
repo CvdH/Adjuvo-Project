@@ -4,7 +4,7 @@ Nul1     = postpad(vec(dlmread("openingdoor.txt")), 3800);
 Nul1(1) = [];
 Touch1   = dlmread("touchingknockingmovingmirorothersidewcomp.txt");
 
-CuttButter1 = 7;
+%CuttButter1 = 7;
 CuttButter2 = 20;
 
 %hier is ook een comment
@@ -20,7 +20,7 @@ P1 = fftshift(P1)
 F1 = [-N1/2 : N1/2-1]/N1
 
 N2 = 256
-P2 = abs(fft(Filter2, N1 ))
+%P2 = abs(fft(Filter2, N1 ))
 P2 = fftshift(P2)
 F2 = [-N1/2 : N1/2-1]/N1
 
