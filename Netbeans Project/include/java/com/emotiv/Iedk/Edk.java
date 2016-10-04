@@ -9,6 +9,8 @@ import com.sun.jna.ptr.*;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Structure;
 
+//this is a test edit
+
 public interface Edk extends Library {
 	Edk INSTANCE = (Edk) Native.loadLibrary("edk", Edk.class);
 
