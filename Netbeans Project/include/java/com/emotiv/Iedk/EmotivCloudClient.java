@@ -10,34 +10,37 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Structure;
 
 public interface EmotivCloudClient extends Library {
-	EmotivCloudClient INSTANCE = (EmotivCloudClient) Native.loadLibrary("edk", EmotivCloudClient.class);
 
-	//! Profile types
+    EmotivCloudClient INSTANCE = (EmotivCloudClient) Native.loadLibrary("edk", EmotivCloudClient.class);
+
+    //! Profile types
     public enum profileType_t {
         TRAINING(0),
         EMOKEY(1);
-        
+
         private int type;
+
         profileType_t(int val) {
-        	type = val;
+            type = val;
         }
-        
+
         public int toInt() {
-			return type;
-		}
-    } ;
-    
-    public static class profileVerInfo extends Structure{
+            return type;
+        }
+    };
+
+    public static class profileVerInfo extends Structure {
+
         int version;
         char[] last_modified;
-		@Override
-		protected List getFieldOrder() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+
+        @Override
+        protected List getFieldOrder() {
+            // TODO Auto-generated method stub
+            return null;
+        }
     }
-    
-    
+
     //! Initialize the connection to Emotiv Cloud Server
     /*!
      *  \return bool
@@ -45,29 +48,25 @@ public interface EmotivCloudClient extends Library {
      */
     int EC_Connect();
 
-
-	//! Reconnection to Emotiv engine
-	/*!
+    //! Reconnection to Emotiv engine
+    /*!
 	 *  \return bool
 	 *              - true if Reconnect successfully
-	*/
-	int EC_ReconnectEngine();
+     */
+    int EC_ReconnectEngine();
 
-
-	//! Disconnection to Emotiv engine
-	/*!
+    //! Disconnection to Emotiv engine
+    /*!
 	 *   \return bool
 	 *              - true if Reconnect successfully
-	*/
-	int EC_DisconnectEngine();
+     */
+    int EC_DisconnectEngine();
 
-    
     //! Terminate the connection to Emotiv Cloud server
     /*!
      */
     int EC_Disconnect();
 
-    
     //! Login Emotiv Cloud with EmotivID
     /*!
      *  To register a new EmotivID please visit https://id.emotivcloud.com/ .
@@ -78,15 +77,13 @@ public interface EmotivCloudClient extends Library {
      */
     int EC_Login(String username, String password);
 
-    
     //! Logout Emotiv Cloud
     /*
      *  \return bool
      *              - true if logout successfully
      */
-     int EC_Logout(int userCloudID);
+    int EC_Logout(int userCloudID);
 
-    
     //! Get user ID after login
     /*!
      *  \param userCloudID - return user ID for subsequence requests
@@ -95,7 +92,6 @@ public interface EmotivCloudClient extends Library {
      */
     int EC_GetUserDetail(IntByReference userCloudID);
 
-    
     //! Save user profile to Emotiv Cloud
     /*!
      *  \param userCloudID  - user ID from EC_GetUserDetail()
@@ -106,8 +102,7 @@ public interface EmotivCloudClient extends Library {
      *              - true if saved successfully
      */
     int EC_SaveUserProfile(int userCloudID, int engineUserID, String profileName, int ptype);
-    
-    
+
     //! Update user profile to Emotiv Cloud
     /*!
      *  \param userCloudID  - user ID from EC_GetUserDetail()
@@ -118,8 +113,7 @@ public interface EmotivCloudClient extends Library {
      *               - true if updated successfully
      */
     int EC_UpdateUserProfile(int userCloudID, int engineUserID, int profileId);
-    
-    
+
     //! Delete user profile from Emotiv Cloud
     /*!
      *  \param userCloudID  - user ID from EC_GetUserDetail()
@@ -129,7 +123,6 @@ public interface EmotivCloudClient extends Library {
      */
     int EC_DeleteUserProfile(int userCloudID, int profileId);
 
-    
     //! Get profile ID of a user
     /*!
      *  \param userCloudID  - user ID from EC_GetUserDetail()
@@ -137,7 +130,6 @@ public interface EmotivCloudClient extends Library {
      *  \return int - return profile ID if found, otherwise -1
      */
     int EC_GetProfileId(int userCloudID, String profileName);
-    
 
     //! Load profile from Emotiv Cloud
     /*!
@@ -151,7 +143,6 @@ public interface EmotivCloudClient extends Library {
      */
     int EC_LoadUserProfile(int userCloudID, int engineUserID, int profileId, int version);
 
-    
     //! Update all the profile info from Emotiv Cloud
     /*!
      *  This function needs to be called first before calling EC_ProfileIDAtIndex(), EC_ProfileNameAtIndex(),
@@ -162,7 +153,6 @@ public interface EmotivCloudClient extends Library {
      */
     int EC_GetAllProfileName(int userCloudID);
 
-    
     //! Return the profile ID of a profile in cache
     /*!
      *  \param userCloudID  - user ID from EC_GetUserDetail()
@@ -171,8 +161,7 @@ public interface EmotivCloudClient extends Library {
      *               - profile ID
      */
     int EC_ProfileIDAtIndex(int userCloudID, int index);
-    
-    
+
     //! Return the profile name of a profile in cache
     /*! \param userCloudID  - user ID from EC_GetUserDetail()
      *  \param index        - index of profile (starts from 0)
@@ -180,18 +169,16 @@ public interface EmotivCloudClient extends Library {
      *               - profile name
      */
     String EC_ProfileNameAtIndex(int userCloudID, int index);
-    
-    
+
     //! Return the last modified timestamp of a profile in cache
     /*!
      *  \param userCloudID  - user ID from EC_GetUserDetail()
      *  \param index        - index of profile (starts from 0)
      *  \return const char* 
      *              - last modified timestamp
-    */
+     */
     String EC_ProfileLastModifiedAtIndex(int userCloudID, int index);
-    
-    
+
     //! Return the type of a profile in cache
     /*!
      *  \param userCloudID  - user ID from EC_GetUserDetail()
