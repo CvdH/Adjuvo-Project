@@ -78,3 +78,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /Netbeans Project/nbproject/private/
+/Netbeans Project/build/

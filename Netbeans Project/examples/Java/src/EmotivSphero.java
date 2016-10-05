@@ -37,9 +37,9 @@ public class EmotivSphero implements Runnable {
 
     public static void main(String[] args) throws InterruptedException {
 
-        String userName = "Your EmotivID";
-        String password = "Your password";
-        profileName = "Your profile name";
+        String userName = "hhs_ccj_project";
+        String password = "CCJproject001";
+        profileName = "World";
 
         engineUserID = new IntByReference(0);
         userCloudID = new IntByReference(0);
@@ -122,11 +122,9 @@ public class EmotivSphero implements Runnable {
 
     private static void SavingLoadingFunction(int userCloudID, int engineUserID, boolean save, String profileName) {
         int getNumberProfile = EmotivCloudClient.INSTANCE.EC_GetAllProfileName(userCloudID);
-
         int profileID = EmotivCloudClient.INSTANCE.EC_GetProfileId(userCloudID, profileName);
 
         if (save) {
-
             if (profileID >= 0) {
                 System.out.println("Profile with " + profileName + " exists.");
                 if (EmotivCloudClient.INSTANCE.EC_UpdateUserProfile(userCloudID, engineUserID,
@@ -141,7 +139,6 @@ public class EmotivSphero implements Runnable {
             } else {
                 System.out.println("Saving failed");
             }
-            return;
         } else {
             if (getNumberProfile > 0) {
                 if (EmotivCloudClient.INSTANCE.EC_LoadUserProfile(userCloudID, engineUserID, profileID,
@@ -151,9 +148,7 @@ public class EmotivSphero implements Runnable {
                     System.out.println("Loading failed");
                 }
             }
-            return;
         }
-
     }
 
     public static void help() {
@@ -164,8 +159,8 @@ public class EmotivSphero implements Runnable {
         System.out.println("C. Press 3 to Start training RIGHT. When completed, press 4");
         System.out.println("D. Press 4 to Start training LEFT.");
         System.out.println("E. Press 5 to Set ActivationLevel.");
-        System.out.println("=============================================================");
-        System.out.println("Otherwise, press key below for more:");
+        System.out.println();
+        System.out.println("=========== Otherwise, press key below for more: ============");
         System.out.println();
         System.out.println("Press 6 to Read ActivationLevel.");
         System.out.println("Press 7 to Get OveralSkillRating.");
@@ -176,19 +171,16 @@ public class EmotivSphero implements Runnable {
         System.out.println("Press r to start live classification.");
         System.out.println("Press q to quit.");
         System.out.println("=============================================================");
-
     }
 
     private static void handleMentalCommandEvent(IntByReference engineUserID, Pointer cognitiveEvent) {
         int eventType = Edk.INSTANCE.IEE_MentalCommandEventGetType(cognitiveEvent);
 
         switch (eventType) {
-
             case 1: {
                 System.out.println("MentalCommand training for user " + engineUserID.getValue() + " STARTED!");
                 break;
             }
-
             case 2: {
                 System.out.println("MentalCommand training for user " + engineUserID.getValue() + " SUCCEEDED!");
                 System.out.println("Accept training!!!");
@@ -196,27 +188,22 @@ public class EmotivSphero implements Runnable {
                         Edk.IEE_MentalCommandTrainingControl_t.MC_ACCEPT.getType());
                 break;
             }
-
             case 3: {
                 System.out.println("MentalCommand training for user " + engineUserID.getValue() + " FAILED!");
                 break;
             }
-
             case 4: {
                 System.out.println("MentalCommand training for user " + engineUserID.getValue() + " COMPLETED!");
                 break;
             }
-
             case 5: {
                 System.out.println("MentalCommand training for user " + engineUserID.getValue() + " ERASED!");
                 break;
             }
-
             case 6: {
                 System.out.println("MentalCommand training for user " + engineUserID.getValue() + " REJECTED!");
                 break;
             }
-
             case 7: {
                 System.out.println("MentalCommand training for user " + engineUserID.getValue() + " RESET!");
                 break;
@@ -225,19 +212,16 @@ public class EmotivSphero implements Runnable {
                 System.out.println("MentalCommand training for user " + engineUserID.getValue() + " Auto Sampling Neutral Completed!");
                 break;
             }
-
             case 0: {
                 break;
             }
-
             default: {
                 break;
             }
         }
     }
 
-    public static boolean handleUserInput(IntByReference userId, IntByReference userCloudId, String profileName,
-            String line) {
+    public static boolean handleUserInput(IntByReference userId, IntByReference userCloudId, String profileName, String line) {
         switch (line) {
             case "1": {
                 long action1 = (long) EmoState.IEE_MentalCommandAction_t.MC_RIGHT.ToInt();
@@ -246,16 +230,13 @@ public class EmotivSphero implements Runnable {
                 int errorCode = EdkErrorCode.EDK_OK.ToInt();
                 errorCode = Edk.INSTANCE.IEE_MentalCommandSetActiveActions(userId.getValue(), listAction);
                 if (errorCode == EdkErrorCode.EDK_OK.ToInt()) {
-                    System.out.println(
-                            "Setting MentalCommand active actions (MC_LEFT | MC_RIGHT) for user " + userId.getValue());
+                    System.out.println("Setting MentalCommand active actions (MC_LEFT | MC_RIGHT) for user " + userId.getValue());
                 } else {
                     System.out.println("Setting MentalCommand active actions error: " + errorCode);
                 }
 
                 Edk.INSTANCE.IEE_EngineClearEventQueue(Edk.IEE_Event_t.IEE_EmoStateUpdated.ToInt());
-
                 break;
-
             }
             case "2": {
                 System.out.println("Starting training NEUTRAL!");
