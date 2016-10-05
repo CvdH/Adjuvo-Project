@@ -23,31 +23,34 @@ public class EmoStateLoggerSim {
 
         System.out.println("EmoStateLogger simulation started.");
 
+        OUTER:
         while (true) {
             int eventType = 0;
             try {
-                System.out.print("Command [b = blink; etc]: ");
-                int newAction = sim.setFacialExpressionEvent(in.readLine());
-                if (newAction == 0) {
-                    state = 0; // Exit the simulation //EdkErrorCode.EDK_NO_EVENT.ToInt();
-                } else {
-                    state = EdkErrorCode.EDK_OK.ToInt(); // 
-                    if (curAction != newAction) {
-                        curAction = newAction;
+                System.out.println("Input: (Syntax = \"[add|rmv] [b(blink)|s(surprise)]\")");
+                int ret = sim.setFacialExpressionEvent(in.readLine());
+                switch (ret) {
+                    case -1:
+                        break OUTER; // Exit the simulation
+                    case 1:
+                        System.out.println("Operation succesful.");
+                        state = EdkErrorCode.EDK_OK.ToInt();
                         eventType = Edk.IEE_Event_t.IEE_EmoStateUpdated.ToInt(); // Update the Emostate
-                    }
+                        break;
+                    case 2:
+                        System.out.println("Operation not applicable.");
+                        break;
+                    default:
+                        break;
                 }
-            } catch (IOException ex) {
+            }catch (IOException ex) {
                 System.out.println("Readline failed:" + ex);
             }
-            
-            // New event needs to be handled
             if (state == EdkErrorCode.EDK_OK.ToInt()) {
                 //Edk.INSTANCE.IEE_EmoEngineEventGetUserId(eEvent, userID);
 
                 // Log the EmoState if it has been updated
                 if (eventType == Edk.IEE_Event_t.IEE_EmoStateUpdated.ToInt()) {
-                    
                     //Edk.INSTANCE.IEE_EmoEngineEventGetEmoState(eEvent, eState);
                     //float timestamp = EmoState.INSTANCE.IS_GetTimeFromStart(eState);
                     //System.out.println(timestamp + " : New EmoState from user " + userID.getValue());
@@ -55,9 +58,16 @@ public class EmoStateLoggerSim {
                     //System.out.print("WirelessSignalStatus: ");
                     //System.out.println(EmoState.INSTANCE.IS_GetWirelessSignalStatus(eState));
 
-                    System.out.print("Action: ");
+                    System.out.println("Current commandlist: " + EmoStateSim.actions.toString());
+                    
                     // Check which action was performed
-                    if (curAction == EmoState.IEE_FacialExpressionAlgo_t.FE_BLINK.ToInt()) { // TODO: meerdere tegelijk
+                    // TODO: de if-statements omvormen naar foreach-dan-if (normaal kan je ook meerdere emoties tegelijk opvangen)
+                    /*
+                        foreach action in actions
+                            if (action == ...)
+                                doAction();
+                    */
+                    if (curAction == EmoState.IEE_FacialExpressionAlgo_t.FE_BLINK.ToInt()) {
                         System.out.println("Blink");
                     }
                     if (EmoState.INSTANCE.IS_FacialExpressionIsLeftWink(eState) == 1) {
