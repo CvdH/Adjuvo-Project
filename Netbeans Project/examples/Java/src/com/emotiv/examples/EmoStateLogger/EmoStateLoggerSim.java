@@ -3,53 +3,46 @@ package com.emotiv.examples.EmoStateLogger;
 import com.emotiv.Iedk.*;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Simple example of JNA interface mapping and usage.
  */
-public class EmoStateLogger {
+public class EmoStateLoggerSim {
 
     public static void main(String[] args) {
         Pointer eEvent = Edk.INSTANCE.IEE_EmoEngineEventCreate();
         Pointer eState = Edk.INSTANCE.IEE_EmoStateCreate();
-        IntByReference userID = null;
-        short composerPort = 1726;
-        int option = 1 ;
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        IntByReference userID = new IntByReference(0);
+        EmoStateSim sim = new EmoStateSim();
         int state = 0;
+        int curAction = 0;
 
-        userID = new IntByReference(0);
-
-        switch (option) {
-            case 1: {
-                if (Edk.INSTANCE.IEE_EngineConnect("Emotiv Systems-5") != EdkErrorCode.EDK_OK.ToInt()) {
-                    System.out.println("Emotiv Engine start up failed.");
-                    return;
-                }
-                System.out.println("Nothing happened.");
-                break;
-            }
-            case 2: {
-                System.out.println("Target IP of EmoComposer: [127.0.0.1] ");
-
-                if (Edk.INSTANCE.IEE_EngineRemoteConnect("127.0.0.1", composerPort, "Emotiv Systems-5") != EdkErrorCode.EDK_OK.ToInt()) {
-                    System.out.println("Cannot connect to EmoComposer on [127.0.0.1]");
-                    return;
-                }
-                System.out.println("Connected to EmoComposer on [127.0.0.1]");
-                break;
-            }
-            default:
-                System.out.println("Invalid option...");
-                return;
-        }
+        System.out.println("EmoStateLogger simulation started.");
 
         while (true) {
-            state = Edk.INSTANCE.IEE_EngineGetNextEvent(eEvent);
+            int eventType = 0;
+            try {
+                System.out.print("Command: [b = blink; etc]");
+                int newAction = sim.setFacialExpressionEvent(in.readLine());
+                if (newAction == 0) {
+                    state = 0; // Exit the simulation //EdkErrorCode.EDK_NO_EVENT.ToInt();
+                } else {
+                    state = EdkErrorCode.EDK_OK.ToInt(); // 
+                    if (curAction != newAction) {
+                        curAction = newAction;
+                        eventType = Edk.IEE_Event_t.IEE_EmoStateUpdated.ToInt(); // Update the Emostate
+                    }
+                }
+            } catch (IOException ex) {
+                System.out.println("Readline failed:" + ex);
+            }
             
             // New event needs to be handled
             if (state == EdkErrorCode.EDK_OK.ToInt()) {
-
-                int eventType = Edk.INSTANCE.IEE_EmoEngineEventGetType(eEvent);
                 Edk.INSTANCE.IEE_EmoEngineEventGetUserId(eEvent, userID);
 
                 // Log the EmoState if it has been updated
@@ -62,6 +55,7 @@ public class EmoStateLogger {
                     System.out.print("WirelessSignalStatus: ");
                     System.out.println(EmoState.INSTANCE.IS_GetWirelessSignalStatus(eState));
 
+                    // Check which action was performed
                     if (EmoState.INSTANCE.IS_FacialExpressionIsBlink(eState) == 1) {
                         System.out.println("Blink");
                     }
