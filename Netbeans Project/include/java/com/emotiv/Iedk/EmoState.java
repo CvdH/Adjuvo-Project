@@ -19,7 +19,6 @@ public interface EmoState extends Library {
      * FacialExpression facial expression type enumerator
      */
     public enum IEE_FacialExpressionAlgo_t {
-
         FE_NEUTRAL(0x0001),
         FE_BLINK(0x0002),
         FE_WINK_LEFT(0x0004),
@@ -49,7 +48,6 @@ public interface EmoState extends Library {
      * MentalCommand action type enumerator
      */
     public enum IEE_MentalCommandAction_t {
-
         MC_NEUTRAL(0x0001),
         MC_PUSH(0x0002),
         MC_PULL(0x0004),

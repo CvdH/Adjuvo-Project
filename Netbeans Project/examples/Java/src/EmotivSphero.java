@@ -79,8 +79,7 @@ public class EmotivSphero implements Runnable {
         Edk.INSTANCE.IEE_EmoStateFree(eState);
         Edk.INSTANCE.IEE_EmoEngineEventFree(eEvent);
 
-        System.out.println("Wating for the Thread");
-
+        System.out.println("Waiting for the Thread");
     }
 
     public static void startLiveClassificationProcess() {
@@ -117,7 +116,6 @@ public class EmotivSphero implements Runnable {
                 System.out.println("Internal error in Emotiv Engine!");
             }
         }
-
     }
 
     private static void SavingLoadingFunction(int userCloudID, int engineUserID, boolean save, String profileName) {
@@ -309,9 +307,6 @@ public class EmotivSphero implements Runnable {
 
     public static boolean checkTrained(NativeLongByReference action, int userId) {
         int result = Edk.INSTANCE.IEE_MentalCommandGetTrainedSignatureActions(userId, action);
-        if (result == EdkErrorCode.EDK_OK.ToInt()) {
-            return true;
-        }
-        return false;
+        return result == EdkErrorCode.EDK_OK.ToInt();
     }
 }
