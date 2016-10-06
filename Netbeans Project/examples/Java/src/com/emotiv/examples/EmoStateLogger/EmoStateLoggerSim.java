@@ -70,17 +70,17 @@ public class EmoStateLoggerSim {
                     //for (int[] action : EmoStateSim.actions) {
                                                           
                     Iterator entries = EmoStateSim.actions.entrySet().iterator();
-                        while (entries.hasNext()) {
-                        Entry thisEntry = (Entry) entries.next();
-                        Object key = thisEntry.getKey();
-                        Object value = thisEntry.getValue();
+                    while (entries.hasNext()) {
+                        Entry thisEntry = (Entry)entries.next();
+                        int key = (int)thisEntry.getKey();
+                        int value = (int)thisEntry.getValue();
                         
-                        if (Integer.parseInt(key.toString()) == EmoState.IEE_FacialExpressionAlgo_t.FE_BLINK.ToInt()) {
-                            System.out.print(" doBlink("+Integer.parseInt(value.toString())+") ");
-                        } else if (Integer.parseInt(key.toString()) == EmoState.IEE_FacialExpressionAlgo_t.FE_SURPRISE.ToInt()) {
-                            System.out.print(" doSuprise("+Integer.parseInt(value.toString())+") ");
-                        } else if (Integer.parseInt(key.toString()) == EmoState.IEE_FacialExpressionAlgo_t.FE_LAUGH.ToInt()) {
-                            System.out.print(" doLaugh("+Integer.parseInt(value.toString())+") ");
+                        if (key == EmoState.IEE_FacialExpressionAlgo_t.FE_BLINK.ToInt()) {
+                            System.out.print(" doBlink(" + value + ") ");
+                        } else if (key == EmoState.IEE_FacialExpressionAlgo_t.FE_SURPRISE.ToInt()) {
+                            System.out.print(" doSuprise(" + value + ") ");
+                        } else if (key == EmoState.IEE_FacialExpressionAlgo_t.FE_LAUGH.ToInt()) {
+                            System.out.print(" doLaugh(" + value + ") ");
                         }
                     }
                     System.out.println();
