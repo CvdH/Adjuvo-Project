@@ -1,25 +1,39 @@
 package com.emotiv.Iedk;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class EmoStateSim {
-    public static ArrayList<Integer> actions;
+    public static Map actions = new HashMap();
+
     
     public EmoStateSim() {
-        actions = new ArrayList();
+        actions = new HashMap();
     }
     
     public int setFacialExpressionEvent(String strState) {
         EmoState.IEE_FacialExpressionAlgo_t action = null;
         
         String[] m = strState.trim().split(" ");
+        
         if (m.length < 2) {
             return -1;
         }
-        String doStr = m[0];
-        String withStr = m[1];
         
-        switch (withStr) {
+        String actionStr = m[0];
+        String expressionStr = m[1];
+        int strengthStr = 0;
+               
+        if (m.length > 2) {
+            //return -1;
+            strengthStr = Integer.parseInt(m[2]);
+        }
+        
+        if (strengthStr<0)      strengthStr += 100;
+        if (strengthStr>100)    strengthStr -= 100;
+        
+        switch (expressionStr) {
             case "b":
                 action = EmoState.IEE_FacialExpressionAlgo_t.FE_BLINK;
                 break;
@@ -36,19 +50,20 @@ public class EmoStateSim {
         if (action != null) {
             int num = action.ToInt();
         
-            if (doStr.equals("add")) {
-                if (actions.contains(num)) {
+            if (actionStr.equals("add")) {
+                if (actions.containsKey(num)) {
                     return 2; // already in list
                 } else {
-                    actions.add(num);
+                    actions.put(num, strengthStr);
                     return 1; // succesfully added
                 }
-            } else if (doStr.equals("rmv")) {
-                if (!actions.contains(num)) {
+            } else if (actionStr.equals("rmv")) {
+                if (!actions.containsKey(num)) {
+
                     return 2; // already not in list
                 }
                 else {
-                    actions.remove(Integer.valueOf(num)); // want we willen niet de verwijder-van-index-"num" versie hebben
+                    actions.remove(num);
                     return 1; // succesfully removed
                 }
             } else {

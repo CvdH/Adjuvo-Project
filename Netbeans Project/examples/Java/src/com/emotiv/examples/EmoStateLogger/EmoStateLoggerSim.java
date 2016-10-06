@@ -7,6 +7,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
+
 /**
  * Simple example of JNA interface mapping and usage.
  */
@@ -22,7 +25,7 @@ public class EmoStateLoggerSim {
         int curAction = 0;
 
         System.out.println("EmoStateLogger simulation started.");
-        System.out.println("Syntax: \"<add|rmv> <b(blink)|l(laugh)|s(surprise)>|<n(nothing)|q(quit)>\"");
+        System.out.println("Syntax: \"<<add|rmv> <b(blink)|l(laugh)|s(surprise)> <0-100(strength)>>\t|<n(nothing)|q(quit)>\"");
         
         OUTER:
         while (true) {
@@ -64,13 +67,20 @@ public class EmoStateLoggerSim {
                     
                     System.out.print("Actions: ");
                     // Check which actions are being performed
-                    for (int action : EmoStateSim.actions) {
-                        if (action == EmoState.IEE_FacialExpressionAlgo_t.FE_BLINK.ToInt()) {
-                            System.out.print(" doBlink ");
-                        } else if (action == EmoState.IEE_FacialExpressionAlgo_t.FE_SURPRISE.ToInt()) {
-                            System.out.print(" doSuprise ");
-                        } else if (action == EmoState.IEE_FacialExpressionAlgo_t.FE_LAUGH.ToInt()) {
-                            System.out.print(" doLaugh ");
+                    //for (int[] action : EmoStateSim.actions) {
+                                                          
+                    Iterator entries = EmoStateSim.actions.entrySet().iterator();
+                        while (entries.hasNext()) {
+                        Entry thisEntry = (Entry) entries.next();
+                        Object key = thisEntry.getKey();
+                        Object value = thisEntry.getValue();
+                        
+                        if (Integer.parseInt(key.toString()) == EmoState.IEE_FacialExpressionAlgo_t.FE_BLINK.ToInt()) {
+                            System.out.print(" doBlink("+Integer.parseInt(value.toString())+") ");
+                        } else if (Integer.parseInt(key.toString()) == EmoState.IEE_FacialExpressionAlgo_t.FE_SURPRISE.ToInt()) {
+                            System.out.print(" doSuprise("+Integer.parseInt(value.toString())+") ");
+                        } else if (Integer.parseInt(key.toString()) == EmoState.IEE_FacialExpressionAlgo_t.FE_LAUGH.ToInt()) {
+                            System.out.print(" doLaugh("+Integer.parseInt(value.toString())+") ");
                         }
                     }
                     System.out.println();
