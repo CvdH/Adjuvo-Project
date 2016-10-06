@@ -23,7 +23,7 @@ public class EmoStateSim {
         
         String actionStr = m[0];
         String expressionStr = m[1];
-        int strengthStr = 0;
+        int strengthStr = 1;
                
         if (m.length > 2) {
             //return -1;
