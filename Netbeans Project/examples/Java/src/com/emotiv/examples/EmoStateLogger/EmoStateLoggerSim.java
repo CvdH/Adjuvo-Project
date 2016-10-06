@@ -22,7 +22,7 @@ public class EmoStateLoggerSim {
         int curAction = 0;
 
         System.out.println("EmoStateLogger simulation started.");
-        System.out.println("Syntax = \"[[add|rmv] [b(blink)|l(laugh)|s(surprise)]|n(nothing)|q(quit)]\"");
+        System.out.println("Syntax: \"<add|rmv> <b(blink)|l(laugh)|s(surprise)>|<n(nothing)|q(quit)>\"");
         
         OUTER:
         while (true) {
@@ -59,6 +59,7 @@ public class EmoStateLoggerSim {
 
                     System.out.println("Current commandlist: " + EmoStateSim.actions.toString());
                     
+                    System.out.print("Actions: ");
                     // Check which actions are being performed
                     for (int action : EmoStateSim.actions) {
                         if (action == EmoState.IEE_FacialExpressionAlgo_t.FE_BLINK.ToInt()) {
@@ -69,6 +70,7 @@ public class EmoStateLoggerSim {
                             System.out.print(" doLaugh ");
                         }
                     }
+                    System.out.println();
                     
                     //Edk.INSTANCE.IEE_EmoEngineEventGetEmoState(eEvent, eState);
                     //float timestamp = EmoState.INSTANCE.IS_GetTimeFromStart(eState);
@@ -84,7 +86,6 @@ public class EmoStateLoggerSim {
                 System.out.println("Internal error in Emotiv Engine!");
                 break;
             }
-            System.out.println("\n");
         }
 
         Edk.INSTANCE.IEE_EngineDisconnect();
