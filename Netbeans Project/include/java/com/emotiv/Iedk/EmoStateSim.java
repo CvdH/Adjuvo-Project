@@ -30,8 +30,8 @@ public class EmoStateSim {
             strengthStr = Integer.parseInt(m[2]);
         }
         
-        if (strengthStr<0)      strengthStr += 100;
-        if (strengthStr>100)    strengthStr -= 100;
+        if (strengthStr<1)      strengthStr = 1;
+        if (strengthStr>100)    strengthStr = 100;
         
         switch (expressionStr) {
             case "b":
