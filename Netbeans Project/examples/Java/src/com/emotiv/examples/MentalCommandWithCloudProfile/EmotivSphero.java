@@ -1,3 +1,5 @@
+package com.emotiv.examples.MentalCommandWithCloudProfile;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;

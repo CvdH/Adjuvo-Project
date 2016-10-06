@@ -32,7 +32,7 @@ public interface EmoState extends Library {
         FE_SMIRK_LEFT(0x0400),
         FE_SMIRK_RIGHT(0x0800);
 
-        private int bit;
+        private final int bit;
 
         IEE_FacialExpressionAlgo_t(int bitNumber) {
             bit = bitNumber;
@@ -41,7 +41,6 @@ public interface EmoState extends Library {
         public int ToInt() {
             return (bit);
         }
-
     }
 
     /**
@@ -63,7 +62,7 @@ public interface EmoState extends Library {
         MC_ROTATE_REVERSE(0x1000),
         MC_DISAPPEAR(0x2000);
 
-        private int bit;
+        private final int bit;
 
         IEE_MentalCommandAction_t(int bitNumber) {
             bit = bitNumber;
@@ -72,7 +71,6 @@ public interface EmoState extends Library {
         public int ToInt() {
             return (bit);
         }
-
     }
 
     /**
@@ -106,7 +104,7 @@ public interface EmoState extends Library {
         IEE_CHAN_AF4(16),
         IEE_CHAN_FP2(17);
 
-        private int cType;
+        private final int cType;
 
         IEE_InputChannels_t(int val) {
             cType = val;
