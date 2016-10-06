@@ -22,16 +22,19 @@ public class EmoStateLoggerSim {
         int curAction = 0;
 
         System.out.println("EmoStateLogger simulation started.");
-
+        System.out.println("Syntax = \"[add|rmv] [b(blink)|l(laugh)|s(surprise)]\"");
+        
         OUTER:
         while (true) {
             int eventType = 0;
             try {
-                System.out.println("Input: (Syntax = \"[add|rmv] [b(blink)|l(laugh)|s(surprise)]\")");
-                int ret = sim.setFacialExpressionEvent(in.readLine());
+                System.out.print("Input: ");
+                String inStr = in.readLine();
+                if (inStr.equals("q")) { // quit
+                    break;
+                }
+                int ret = sim.setFacialExpressionEvent(inStr);
                 switch (ret) {
-                    case -1:
-                        break OUTER; // Exit the simulation
                     case 1:
                         System.out.println("Operation succesful.");
                         state = EdkErrorCode.EDK_OK.ToInt();
@@ -43,7 +46,7 @@ public class EmoStateLoggerSim {
                     default:
                         break;
                 }
-            }catch (IOException ex) {
+            } catch (IOException ex) {
                 System.out.println("Readline failed:" + ex);
             }
             if (state == EdkErrorCode.EDK_OK.ToInt()) {

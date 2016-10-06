@@ -10,10 +10,6 @@ public class EmoStateSim {
     }
     
     public int setFacialExpressionEvent(String strState) {
-        if (strState.equals("q")) {
-            return -1; // quit
-        }
-        
         EmoState.IEE_FacialExpressionAlgo_t action = null;
         
         String[] m = strState.trim().split(" ");
