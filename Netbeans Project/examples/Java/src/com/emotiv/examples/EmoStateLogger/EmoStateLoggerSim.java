@@ -27,7 +27,7 @@ public class EmoStateLoggerSim {
         while (true) {
             int eventType = 0;
             try {
-                System.out.println("Input: (Syntax = \"[add|rmv] [b(blink)|s(surprise)]\")");
+                System.out.println("Input: (Syntax = \"[add|rmv] [b(blink)|l(laugh)|s(surprise)]\")");
                 int ret = sim.setFacialExpressionEvent(in.readLine());
                 switch (ret) {
                     case -1:

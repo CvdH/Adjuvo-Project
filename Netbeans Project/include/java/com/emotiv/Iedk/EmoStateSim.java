@@ -31,6 +31,9 @@ public class EmoStateSim {
             case "s":
                 action = EmoState.IEE_FacialExpressionAlgo_t.FE_SURPRISE;
                 break;
+            case "l":
+                action = EmoState.IEE_FacialExpressionAlgo_t.FE_LAUGH;
+                break;
         }
         
         if (action != null) {
