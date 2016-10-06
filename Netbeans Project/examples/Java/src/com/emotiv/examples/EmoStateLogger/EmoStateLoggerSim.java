@@ -35,6 +35,9 @@ public class EmoStateLoggerSim {
                 } else if (!inStr.equals("n")) {
                     int ret = sim.setFacialExpressionEvent(inStr);
                     switch (ret) {
+                        case -1:
+                            System.out.println("Unrecognized command.");
+                            break;
                         case 1:
                             System.out.println("Operation succesful.");
                             state = EdkErrorCode.EDK_OK.ToInt();
