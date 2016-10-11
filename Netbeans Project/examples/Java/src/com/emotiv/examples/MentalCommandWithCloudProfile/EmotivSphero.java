@@ -38,7 +38,6 @@ public class EmotivSphero implements Runnable {
     }
 
     public static void main(String[] args) throws InterruptedException {
-
         String userName = "hhs_ccj_project";
         String password = "CCJproject001";
         profileName = "World";
