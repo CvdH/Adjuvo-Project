@@ -9,6 +9,9 @@ public class HeadsetController {
     private final Pointer eState;
     private int mcState;
 
+    /*
+    
+    */
     public HeadsetController() {
         this.emsInst = EmoState.INSTANCE;
         this.edkInst = Edk.INSTANCE;
@@ -17,16 +20,41 @@ public class HeadsetController {
         this.mcState = 0;
     }
     
-    public void updateState() { // update the state of the current Mental Command
-        int s = Edk.INSTANCE.IEE_EngineGetNextEvent(eEvent);
-        setMcState(s);
+    /*
+    
+    */
+    public int connect() {
+        if (edkInst.IEE_EngineConnect("Emotiv Systems-5") != EdkErrorCode.EDK_OK.ToInt()) {
+            System.out.println("Emotiv Engine start up failed.");
+            return 0;
+        }
+        System.out.println("Emotiv Engine connection succeeded.");
+        return 1;
+    }
+    
+    /*
+    
+    */
+    public void updateState() { // update the state with the current Mental Command
+        int i = edkInst.IEE_EngineGetNextEvent(eEvent);
+        System.out.println("state: " + i);
+        setMCState(i);
+    }
+    
+    /*
+    
+    */
+    public void perform() {
+        int i = emsInst.IS_MentalCommandGetCurrentAction(eState);
+        float f = emsInst.IS_MentalCommandGetCurrentActionPower(eState);
+        System.out.println("mental command: " + i + " / power: " + f);
     }
 
-    public int getMcState() {
+    public int getMCState() {
         return mcState;
     }
 
-    public void setMcState(int mcState) {
+    public void setMCState(int mcState) {
         this.mcState = mcState;
     }
 }
