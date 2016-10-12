@@ -93,8 +93,7 @@ public class SavingAndLoadingProfileCloud {
                             } else {
                                 System.out.println("Updating failed");
                             }
-                        } else if (EmotivCloudClient.INSTANCE.EC_SaveUserProfile(userCloudID.getValue(), engineUserID.getValue(), profileName, 0) == EmotivCloudErrorCode.EC_OK.ToInt()) // Training
-                        {
+                        } else if (EmotivCloudClient.INSTANCE.EC_SaveUserProfile(userCloudID.getValue(), engineUserID.getValue(), profileName, 0) == EmotivCloudErrorCode.EC_OK.ToInt()) { // Training 
                             System.out.println("Saving finished");
                         } else {
                             System.out.println("Saving failed");
