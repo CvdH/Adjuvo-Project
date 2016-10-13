@@ -79,3 +79,4 @@ $RECYCLE.BIN/
 *.lnk
 /Netbeans Project/nbproject/private/
 /Netbeans Project/build/
+/Netbeans Project/dist/
