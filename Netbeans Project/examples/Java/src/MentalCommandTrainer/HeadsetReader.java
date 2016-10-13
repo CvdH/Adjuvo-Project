@@ -41,10 +41,15 @@ public class HeadsetReader {
             }
             
             // The part where the state of the headset is read
-            hc.updateState();
-            int state = hc.getMCState();
-            hc.perform();
+            if (hc.validateSignal() == 1) {
+                hc.updateState();
+                int state = hc.getMCState();
+                hc.perform();
+            } else {
+                System.out.println("Signal is too noisy!");
+            }
             
+            // 
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
