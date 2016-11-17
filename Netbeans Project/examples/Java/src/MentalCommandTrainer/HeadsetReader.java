@@ -8,29 +8,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HeadsetReader {
-    private static HeadsetController hc;
-    private static CloudProfile pr;
+    private static HeadsetController hsController;
+    private static CloudProfile profile;
     private static int userCloudID;
     
-    private static BufferedReader in;
+    private static BufferedReader readIn;
     private static String keyPress = "";
     
     public static void main(String[] args) {
-        hc = new HeadsetController();
-        pr = new CloudProfile("hhs_ccj_project", "CCJproject001", "World");
-        in = new BufferedReader(new InputStreamReader(System.in));
+        hsController = new HeadsetController();
+        profile = new CloudProfile("hhs_ccj_project", "CCJproject001", "World");
+        readIn = new BufferedReader(new InputStreamReader(System.in));
         
-        int connect = hc.connect();
-        userCloudID = pr.login();
+        int connect = hsController.connect();
+        userCloudID = profile.login();
         if (userCloudID == 0)
-            return; // just end it
+            return;
         
         System.out.println("Starting headset monitoring...");
         while (true) {
-            // The part where you put in keyboard commands
+            // Lees keyboard af, moet worden vervangen met headset input
             System.out.print("Input required: ");
             try {
-                keyPress = in.readLine();
+                keyPress = readIn.readLine();
             } catch (IOException ex) {
                 System.out.println("Bad input");
             }
@@ -40,11 +40,10 @@ public class HeadsetReader {
                 handleKeyInput(keyPress);
             }
             
-            // The part where the state of the headset is read
-            if (hc.validateSignal() == 1) {
-                hc.updateState();
-                int state = hc.getMCState();
-                hc.perform();
+            if (hsController.validateSignal() == 1) { // controleer of het signal sterk genoeg is
+                hsController.updateState(); // update de 'mcState' met het huidige herkende commando
+                int state = hsController.getMCState();
+                hsController.perform(state); // leest de huidige 'Mental Command' af en output deze naar de console
             } else {
                 System.out.println("Signal is too noisy!");
             }
@@ -52,8 +51,8 @@ public class HeadsetReader {
             // 
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                System.out.println("Can't wake up.");
+            } catch (InterruptedException e) {
+                System.out.println("Failure to call thread: " + e);
             }
         }
     }

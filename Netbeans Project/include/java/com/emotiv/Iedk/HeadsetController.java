@@ -47,44 +47,42 @@ public class HeadsetController {
     }
 
     /*
-    
+        Vergelijk de staat van de headset met de mogelijke commando's
     */
-    public void perform() {
-        int i = emsInst.IS_MentalCommandGetCurrentAction(eState);
-        String s = "Unspecified/NaN";
+    public void perform(int state) {
+        String output = "Unspecified/NaN";
 
-        if (i == EmoState.IEE_MentalCommandAction_t.MC_NEUTRAL.ToInt()) {
-            s = "Neutral";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_PUSH.ToInt()) {
-            s = "Push";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_PULL.ToInt()) {
-            s = "Pull";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_LIFT.ToInt()) {
-            s = "Lift";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_DROP.ToInt()) {
-            s = "Drop";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_LEFT.ToInt()) {
-            s = "Left";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_RIGHT.ToInt()) {
-            s = "Right";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_LEFT.ToInt()) {
-            s = "Rotate Left";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_RIGHT.ToInt()) {
-            s = "Rotate Right";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_CLOCKWISE.ToInt()) {
-            s = "Rotate Clockwise";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_COUNTER_CLOCKWISE.ToInt()) {
-            s = "Rotate Counter-clockwise";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_FORWARDS.ToInt()) {
-            s = "Rotate Forwards";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_REVERSE.ToInt()) {
-            s = "Rotate Backwards/Reverse";
-        } else if (i == EmoState.IEE_MentalCommandAction_t.MC_DISAPPEAR.ToInt()) {
-            s = "Disappear";
+        if (state == EmoState.IEE_MentalCommandAction_t.MC_NEUTRAL.ToInt()) {
+            output = "Neutral";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_PUSH.ToInt()) {
+            output = "Push";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_PULL.ToInt()) {
+            output = "Pull";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_LIFT.ToInt()) {
+            output = "Lift";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_DROP.ToInt()) {
+            output = "Drop";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_LEFT.ToInt()) {
+            output = "Left";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_RIGHT.ToInt()) {
+            output = "Right";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_LEFT.ToInt()) {
+            output = "Rotate Left";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_RIGHT.ToInt()) {
+            output = "Rotate Right";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_CLOCKWISE.ToInt()) {
+            output = "Rotate Clockwise";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_COUNTER_CLOCKWISE.ToInt()) {
+            output = "Rotate Counter-clockwise";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_FORWARDS.ToInt()) {
+            output = "Rotate Forwards";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_ROTATE_REVERSE.ToInt()) {
+            output = "Rotate Backwards/Reverse";
+        } else if (state == EmoState.IEE_MentalCommandAction_t.MC_DISAPPEAR.ToInt()) {
+            output = "Disappear";
         }
 
-        float f = emsInst.IS_MentalCommandGetCurrentActionPower(eState); // between 0.0 and 1.0
-        System.out.println("mental command: " + s + " / power: " + f);
+        System.out.println("mental command: " + output);
     }
 
     public int getMCState() {

@@ -80,8 +80,6 @@ public class EmotivSpheroSim implements Runnable {
         Edk.INSTANCE.IEE_EngineDisconnect();
         Edk.INSTANCE.IEE_EmoStateFree(eState);
         Edk.INSTANCE.IEE_EmoEngineEventFree(eEvent);
-
-        System.out.println("Waiting for the Thread");
     }
 
     public static void startLiveClassificationProcess() {

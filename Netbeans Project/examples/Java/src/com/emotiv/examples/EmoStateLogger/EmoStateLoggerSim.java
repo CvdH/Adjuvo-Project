@@ -16,6 +16,16 @@ import java.util.Map.Entry;
 public class EmoStateLoggerSim {
 
     public static void main(String[] args) {
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_NEUTRAL.ToInt());
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_PUSH.ToInt());
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_PULL.ToInt());
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_LIFT.ToInt());
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_DROP.ToInt());
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_LEFT.ToInt());
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_RIGHT.ToInt());
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_ROTATE_LEFT.ToInt());
+        System.out.println("num: " + EmoState.IEE_MentalCommandAction_t.MC_ROTATE_RIGHT.ToInt());
+        
         Pointer eEvent = Edk.INSTANCE.IEE_EmoEngineEventCreate();
         Pointer eState = Edk.INSTANCE.IEE_EmoStateCreate();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -61,7 +71,7 @@ public class EmoStateLoggerSim {
                 //Edk.INSTANCE.IEE_EmoEngineEventGetUserId(eEvent, userID);
 
                 // Log the EmoState if it has been updated
-                if (eventType == Edk.IEE_Event_t.IEE_EmoStateUpdated.ToInt()) {
+                //if (eventType == Edk.IEE_Event_t.IEE_EmoStateUpdated.ToInt()) {
 
                     System.out.println("Current commandlist: " + EmoStateSim.actions.toString());
                     
@@ -94,7 +104,7 @@ public class EmoStateLoggerSim {
 
                     //System.out.print("MentalCommandGetCurrentAction: " + EmoState.INSTANCE.IS_MentalCommandGetCurrentAction(eState));
                     //System.out.print("CurrentActionPower: " + EmoState.INSTANCE.IS_MentalCommandGetCurrentActionPower(eState));
-                }
+                //}
             } else if (state != EdkErrorCode.EDK_NO_EVENT.ToInt()) {
                 System.out.println("Internal error in Emotiv Engine!");
                 break;
