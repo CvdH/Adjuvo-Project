@@ -1,5 +1,0 @@
-# Head
-
-## Subhead
-
-### Sub-Subhead
