@@ -31,11 +31,10 @@ Dit is de belangrijkste map van de SDK. Hierin staan de kern Java en C# bestande
 Hier bevinden zich enkele bestanden die nodig zijn voor het ontwikkelen van software die aansluit op de SDK, waaronder de Java Native Access library waarmee de functies in de .dll files kunnen worden aangeroepen.
 
 ###“tools”
-Deze map bevat twee applicaties, XavierComposer en XavierEmoKey. XavierComposer kan gebruikt worden om headset-statussen, mentale commando’s of gezichtsuitdrukkingen te emuleren
+Deze map bevat twee applicaties, XavierComposer en XavierEmoKey. XavierComposer kan gebruikt worden om headset-statussen, mentale commando’s of gezichtsuitdrukkingen te emuleren, zodat deze kunnen worden getest in de SDK. XavierEmoKey kan gebruikt worden om bepaalde toetsaanslagen te koppelen aan mentale commando’s afkomstig van de headset of van XavierComposer.
 
 ##Notes
-* Tijdens het opzetten van de SDK voor gebruik kwamen we enkele problemen naar boven om het werkend te krijgen dit was gerelateerd aan de DLLs van de SDK. Het betreft de volgende DDLs; vul in.
-Dit is opgelost door de volgende handelingen te doen;
+* Tijdens het opzetten van de SDK is naar voren gekomen dat Github niet automatisch .dll bestanden accepteert in de repository. Er moet daarom worden opgelet dat deze bestanden ook worden meegenomen wanneer de repository wordt gekloond naar een computer.
 
 ##Gerelateerde links
 + [Adjuvo](http://www.myadjuvo.com/)
