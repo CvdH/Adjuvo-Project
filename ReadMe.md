@@ -38,7 +38,7 @@ Deze map bevat twee applicaties, XavierComposer en XavierEmoKey. XavierComposer 
 Dit is opgelost door de volgende handelingen te doen;
 
 ##Gerelateerde links
-+[Adjuvo](http://www.myadjuvo.com/)
-+[Emotiv Community](https://github.com/Emotiv/community-sdk)
-+[Emotiv Advanced](https://github.com/Emotiv/community-sdk)
-+[Emotiv.com](https://Emotiv.com)
++ [Adjuvo](http://www.myadjuvo.com/)
++ [Emotiv Community](https://github.com/Emotiv/community-sdk)
++ [Emotiv Advanced](https://github.com/Emotiv/community-sdk)
++ [Emotiv.com](https://Emotiv.com)
